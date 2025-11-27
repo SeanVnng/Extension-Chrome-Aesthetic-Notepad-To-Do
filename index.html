@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Tab</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="lib/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="https://mail.google.com" class="pill-btn">Gmail</a>
+            <a href="https://drive.google.com" class="pill-btn">Drive</a>
+            <a href="https://calendar.google.com" class="pill-btn">Calendar</a>
+        </div>
+        <button id="theme-toggle" class="pill-btn icon-btn">
+            <span id="theme-icon">☾</span>
+        </button>
+    </nav>
+
+    <main class="dashboard-grid">
+        
+        <section class="card widget-section">
+            <div id="clock-container">
+                <h1 id="time">00:00</h1>
+                <p id="date">Chargement...</p>
+            </div>
+            <div class="divider"></div>
+            <div id="weather-widget">
+                <div id="weather-icon">☁️</div>
+                <div class="weather-info">
+                    <span id="temp">--°C</span>
+                    <span id="city">Localisation...</span>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div id="calendar-widget"></div>
+        </section>
+
+        <div class="center-column">
+            
+            <form action="https://www.google.com/search" method="get" class="google-search-bar">
+                <input type="text" name="q" placeholder="Rechercher sur Google..." autocomplete="off">
+                <button type="submit" class="search-btn">🔍</button>
+            </form>
+
+            <section class="card todo-section">
+                <div class="todo-header">
+                    <h2>Mes Tâches</h2>
+                    <div class="progress-wrapper">
+                        <span id="progress-text">0%</span>
+                        <div class="progress-bar">
+                            <div id="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="add-task-bar">
+                    <input type="text" id="todo-input" placeholder="Nouvelle tâche...">
+                    
+                    <div class="meta-group">
+                        <div id="emoji-container">
+                            <button id="emoji-trigger">📝</button>
+                            <div id="circular-menu">
+                                </div>
+                        </div>
+                        
+                        <input type="text" id="todo-time" placeholder="Ex: 8h-9h">
+                        <button id="add-btn">Ajouter</button>
+                    </div>
+                </div>
+
+                <ul id="todo-list"></ul>
+            </section>
+        </div>
+
+        <section class="card notepad-section">
+            <div class="notepad-header">
+                <h2>Notes</h2>
+                <button id="export-pdf" class="pill-btn small">PDF ↓</button>
+            </div>
+            
+            <div class="toolbar">
+                <button id="btn-bold" title="Gras"><b>B</b></button>
+                <button id="btn-italic" title="Italique"><i>I</i></button>
+                <input type="color" id="foreColor" title="Couleur">
+                <select id="fontSize">
+                    <option value="3">Normal</option>
+                    <option value="5">Grand</option>
+                    <option value="7">Titre</option>
+                </select>
+            </div>
+
+            <div id="notepad-area" contenteditable="true" spellcheck="false">
+                Commencez à écrire ici...
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+/* --- 1. POLICES LOCALES --- */
+@font-face {
+    font-family: 'Inter';
+    src: url('../assets/fonts/Inter_18pt-Regular.ttf') format('truetype');
+    font-weight: 400; font-style: normal;
+}
+@font-face {
+    font-family: 'Inter';
+    src: url('../assets/fonts/Inter_18pt-SemiBold.ttf') format('truetype');
+    font-weight: 600; font-style: normal;
+}
+@font-face {
+    font-family: 'Inter';
+    src: url('../assets/fonts/Inter_18pt-Bold.ttf') format('truetype');
+    font-weight: 800; font-style: normal;
+}
+
+:root {
+    --bg-color: #F4F4F5; --card-bg: #FFFFFF; --text-main: #111111;
+    --text-muted: #71717A; --accent: #111111; --accent-text: #FFFFFF;
+    --border: #E4E4E7; --input-bg: #F4F4F5;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    --radius-card: 24px; --radius-btn: 999px;
+}
+body.dark-mode {
+    --bg-color: #18181B; --card-bg: #27272A; --text-main: #FFFFFF;
+    --text-muted: #A1A1AA; --accent: #FFFFFF; --accent-text: #000000;
+    --border: #3F3F46; --input-bg: #3F3F46;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+body { background-color: var(--bg-color); color: var(--text-main); padding: 20px; height: 100vh; display: flex; flex-direction: column; transition: 0.3s; }
+
+/* Navbar */
+.navbar { display: flex; justify-content: space-between; margin-bottom: 30px; padding: 0 10px; }
+.pill-btn { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-main); padding: 8px 16px; border-radius: var(--radius-btn); text-decoration: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; box-shadow: var(--shadow); transition: 0.2s; }
+.pill-btn:hover { transform: translateY(-1px); border-color: var(--text-muted); }
+.pill-btn.small { padding: 4px 12px; font-size: 0.8rem; }
+.icon-btn { padding: 8px 12px; font-size: 1.2rem; }
+
+/* --- GRID SYSTEM --- */
+.dashboard-grid { 
+    display: grid; 
+    grid-template-columns: 280px 1fr 1fr; 
+    gap: 20px; 
+    flex: 1; 
+    overflow: hidden; 
+}
+
+/* Colonne Centrale (Recherche + Tâches) */
+.center-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Carte Standard */
+.card { 
+    background: var(--card-bg); border-radius: var(--radius-card); padding: 25px; 
+    box-shadow: var(--shadow); border: 1px solid var(--border); 
+    display: flex; flex-direction: column; overflow-y: auto; 
+}
+.todo-section { flex: 1; } /* La section tâche prend toute la place restante */
+
+/* --- BARRE DE RECHERCHE GOOGLE --- */
+.google-search-bar {
+    display: flex; align-items: center;
+    background-color: var(--card-bg); /* Fond blanc/gris selon thème */
+    border: 1px solid var(--border);
+    border-radius: 999px; /* Forme pilule */
+    padding: 12px 20px;
+    box-shadow: var(--shadow);
+    transition: all 0.2s ease;
+    flex-shrink: 0; /* Empêche de s'écraser */
+}
+.google-search-bar:focus-within {
+    border-color: var(--text-muted);
+    box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+.google-search-bar input {
+    flex-grow: 1; border: none; background: transparent; outline: none;
+    font-size: 1rem; color: var(--text-main);
+}
+.search-btn {
+    background: none; border: none; font-size: 1.2rem; cursor: pointer;
+    padding-left: 10px; transition: transform 0.2s;
+}
+.search-btn:hover { transform: scale(1.1); }
+
+/* --- WIDGETS --- */
+.widget-section { gap: 20px; }
+#clock-container h1 { font-size: 3.5rem; font-weight: 800; line-height: 1; display: flex; align-items: baseline; }
+.clock-seconds { font-size: 0.4em; font-weight: 600; color: var(--text-muted); margin-left: 8px; opacity: 0.8; }
+#clock-container p { color: var(--text-muted); font-weight: 500; margin-top: 5px; text-transform: capitalize; }
+.divider { height: 1px; background: var(--border); width: 100%; }
+#weather-widget { display: flex; align-items: center; gap: 15px; }
+#weather-icon { font-size: 2rem; }
+.weather-info { display: flex; flex-direction: column; }
+#temp { font-weight: 800; font-size: 1.2rem; }
+#calendar-widget { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; font-size: 0.8rem; }
+.cal-day { padding: 5px; border-radius: 4px; }
+.cal-today { background: var(--accent); color: var(--accent-text); font-weight: bold; }
+
+/* --- TO-DO LIST --- */
+.todo-section h2, .notepad-section h2 { font-size: 1.5rem; font-weight: 800; margin: 0; }
+.todo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+.progress-wrapper { display: flex; align-items: center; gap: 10px; width: 140px; }
+#progress-text { font-size: 0.85rem; font-weight: 700; color: var(--text-main); }
+.progress-bar { flex: 1; height: 6px; background-color: var(--border); border-radius: 99px; overflow: hidden; }
+#progress-fill { height: 100%; width: 0%; background-color: var(--accent); transition: width 0.4s ease; }
+
+.add-task-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+.meta-group { display: flex; gap: 10px; }
+#todo-input, #todo-time { background-color: var(--input-bg); border: 1px solid transparent; border-radius: 99px; padding: 12px 20px; font-size: 0.9rem; color: var(--text-main); outline: none; transition: 0.2s; }
+#todo-input:focus, #todo-time:focus { border-color: var(--text-muted); }
+#todo-input { flex-grow: 1; }
+#todo-time { width: 110px; text-align: center; }
+#add-btn { background-color: var(--accent); color: var(--accent-text); border: none; padding: 12px 24px; border-radius: 99px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: transform 0.2s; }
+#add-btn:hover { transform: scale(1.02); }
+
+/* Menu Circulaire */
+#emoji-container { position: relative; }
+#emoji-trigger { background-color: var(--input-bg); border: 1px solid transparent; border-radius: 99px; padding: 12px 16px; font-size: 1.2rem; cursor: pointer; min-width: 50px; transition: 0.2s; color: var(--text-main); }
+#emoji-trigger:hover { background-color: var(--border); transform: scale(1.05); }
+#circular-menu { position: absolute; top: 50%; left: 50%; width: 200px; height: 200px; transform: translate(-50%, -50%) scale(0); background: rgba(255, 255, 255, 0.95); border-radius: 50%; box-shadow: 0 10px 25px rgba(0,0,0,0.15); backdrop-filter: blur(10px); z-index: 100; pointer-events: none; opacity: 0; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+body.dark-mode #circular-menu { background: rgba(39, 39, 42, 0.95); box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+#circular-menu.active { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: auto; }
+.emoji-option { position: absolute; width: 40px; height: 40px; border-radius: 50%; border: none; background: transparent; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+.emoji-option:hover { transform: scale(1.3); background-color: var(--bg-color); }
+
+/* List Items */
+#todo-list { list-style: none; }
+.todo-item { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--border); animation: fadeIn 0.3s; }
+.content-div { flex: 1; margin-left: 15px; display: flex; align-items: center; gap: 10px; }
+.todo-emoji-span { font-size: 1.2rem; }
+.todo-time-tag { background: var(--input-bg); padding: 4px 12px; border-radius: 99px; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
+.todo-text { font-weight: 500; font-size: 0.95rem; }
+.todo-item.completed .todo-text { text-decoration: line-through; color: var(--text-muted); opacity: 0.7; }
+.delete-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem; padding: 5px; }
+.delete-btn:hover { color: #ef4444; }
+
+/* Notepad */
+.notepad-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.toolbar { display: flex; gap: 5px; background: var(--bg-color); padding: 8px; border-radius: 12px; margin-bottom: 15px; }
+.toolbar button, .toolbar select, .toolbar input { border: none; background: var(--card-bg); padding: 5px 10px; border-radius: 6px; cursor: pointer; color: var(--text-main); }
+#notepad-area { flex: 1; outline: none; line-height: 1.6; overflow-y: auto; white-space: pre-wrap; border: 1px solid var(--border); border-radius: 12px; padding: 15px; background-color: var(--bg-color); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
