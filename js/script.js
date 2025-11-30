@@ -191,12 +191,59 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('foreColor').addEventListener('input', (e) => formatDoc('foreColor', e.target.value));
     document.getElementById('fontSize').addEventListener('change', (e) => formatDoc('fontSize', e.target.value));
 
+    // --- EXPORT PDF  --- (v2 post correction)
     document.getElementById('export-pdf').addEventListener('click', () => {
         const element = document.getElementById('notepad-area');
-        if (typeof html2pdf !== 'undefined') {
-            html2pdf().set({ margin: 10, filename: 'mes-notes.pdf' }).from(element).save();
-        } else {
+        
+        if (typeof html2pdf === 'undefined') {
             alert("Erreur: Librairie PDF non trouvée.");
+            return;
         }
+
+        // 1. Création d'un conteneur temporaire (invisible à l'écran)
+        // Cela permet de styliser le PDF sans changer ton écran actuel
+        const pdfContainer = document.createElement('div');
+
+        // 2. Styles forcés pour le PDF (Fond BLANC, Texte NOIR, Police propre)
+        pdfContainer.style.cssText = `
+            background-color: #ffffff;
+            color: #111111;
+            font-family: 'Inter', sans-serif;
+            padding: 40px;
+            font-size: 12pt;
+            line-height: 1.6;
+            width: 100%;
+        `;
+
+        // 3. Création d'un en-tête esthétique (Titre + Date)
+        const title = document.createElement('h1');
+        title.textContent = "Mes Notes - Focus Tab";
+        title.style.cssText = "text-align: center; color: #333; font-size: 24px; margin-bottom: 5px; font-weight: 800;";
+
+        const dateLine = document.createElement('div');
+        const date = new Date().toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        dateLine.textContent = `Exporté le ${date}`;
+        dateLine.style.cssText = "text-align: center; color: #777; font-size: 10pt; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 20px;";
+
+        // 4. Clonage du contenu de tes notes
+        const content = document.createElement('div');
+        content.innerHTML = element.innerHTML;
+        
+        // Assemblage final dans le conteneur temporaire
+        pdfContainer.appendChild(title);
+        pdfContainer.appendChild(dateLine);
+        pdfContainer.appendChild(content);
+
+        // 5. Configuration pour une haute qualité
+        const opt = {
+            margin:       [10, 10, 10, 10], // Marges (Haut, Gauche, Bas, Droite)
+            filename:     `mes-notes-${new Date().toISOString().slice(0,10)}.pdf`,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true, letterRendering: true }, 
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        // 6. Génération et sauvegarde
+        html2pdf().set(opt).from(pdfContainer).save();
     });
 });
